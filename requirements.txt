@@ -1,0 +1,6 @@
+aiohttp>=3.10
+mss>=10.2
+pillow>=11
+psutil>=6
+pycaw>=20240316
+segno>=1.6

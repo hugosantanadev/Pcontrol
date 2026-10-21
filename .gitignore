@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+config.json
+config.tmp
+cache/
+pcontrol.log
+dist/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties

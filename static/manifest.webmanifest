@@ -1,0 +1,16 @@
+{
+  "name": "PControl",
+  "short_name": "PControl",
+  "description": "Controle o PC pelo celular",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d0f13",
+  "theme_color": "#0d0f13",
+  "icons": [
+    { "src": "/s/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/s/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/s/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

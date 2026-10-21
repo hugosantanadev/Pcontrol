@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>PControl</title>
+<style>
+  :root { --bg: #0d0f13; --surface: #161a21; --surface-2: #1f242d; --border: #2a303a; --text: #e9edf2; --muted: #8f99a6; --accent: #4f8cff; --danger: #ff5f5f; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, Roboto, sans-serif; }
+  main { max-width: 440px; margin: 0 auto; padding: 32px 20px 40px; display: grid; gap: 18px; }
+  header { display: flex; align-items: center; gap: 14px; }
+  header svg { width: 52px; height: 52px; flex: none; }
+  h1 { margin: 0; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; }
+  .status { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); }
+  .status.err { border-color: rgba(255, 95, 95, .4); }
+  .spinner { width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid var(--surface-2); border-top-color: var(--accent); animation: spin .8s linear infinite; flex: none; }
+  .status.err .spinner, .status.idle .spinner { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: grid; gap: 12px; }
+  .card h2 { margin: 0; font-size: 15px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  button { font: inherit; color: inherit; border: 0; cursor: pointer; }
+  .btn { min-height: 46px; padding: 0 16px; border-radius: 12px; background: var(--surface-2); font-weight: 600; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.danger { background: transparent; color: var(--danger); }
+  .row { display: flex; gap: 8px; }
+  .row .btn { flex: 1; }
+  input { font: inherit; color: inherit; width: 100%; min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface-2); outline: none; }
+  input:focus { border-color: var(--accent); }
+  .pc { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); text-align: left; width: 100%; }
+  .pc b { display: block; }
+  .pc small { color: var(--muted); }
+  .saved { font-size: 14px; display: grid; gap: 4px; }
+  .saved code { color: var(--accent); word-break: break-all; }
+  ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; display: grid; gap: 6px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <svg viewBox="0 0 512 512" aria-hidden="true">
+      <rect width="512" height="512" rx="112" fill="#2f6fed"/>
+      <rect x="96" y="120" width="320" height="216" rx="28" fill="none" stroke="#fff" stroke-width="32"/>
+      <path d="M196 400h120M256 336v64" stroke="#fff" stroke-width="32" stroke-linecap="round"/>
+      <path d="M226 170l104 56-46 11-21 46z" fill="#fff" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
+    </svg>
+    <div><h1>PControl</h1><p>Seu PC na palma da mão</p></div>
+  </header>
+
+  <div id="status" class="status"><div class="spinner"></div><span id="status-text">Procurando seu PC…</span></div>
+
+  <div id="back-card" class="card" hidden>
+    <button id="back" class="btn primary">Voltar para o PC</button>
+  </div>
+
+  <div id="found-card" class="card" hidden>
+    <h2>PCs encontrados no Wi-Fi</h2>
+    <div id="found" style="display:grid;gap:8px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Conectar</h2>
+    <div class="row">
+      <button id="search" class="btn">Procurar no Wi-Fi</button>
+      <button id="retry" class="btn">Tentar de novo</button>
+    </div>
+    <p>Ou digite o endereço que aparece no PC (ex.: 192.168.1.6 ou o IP do Tailscale, 100.x.x.x):</p>
+    <form id="manual" class="row">
+      <input id="address" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="192.168.1.6">
+      <button class="btn primary" type="submit" style="flex:none">Conectar</button>
+    </form>
+  </div>
+
+  <div id="saved-card" class="card" hidden>
+    <h2>PC salvo</h2>
+    <div id="saved" class="saved"></div>
+    <button id="forget" class="btn danger">Esquecer este PC</button>
+  </div>
+
+  <div class="card">
+    <h2>Não está achando?</h2>
+    <ol>
+      <li>Veja se o PC está ligado e se você já entrou na sua conta do Windows.</li>
+      <li>Em casa: o celular precisa estar no mesmo Wi-Fi do PC.</li>
+      <li>Fora de casa: abra o app do Tailscale no celular e deixe ligado.</li>
+      <li>No PC, abra <b>http://localhost:8765/conectar</b> para ver os endereços.</li>
+    </ol>
+  </div>
+</main>
+<script>
+  'use strict';
+  const A = window.PControlApp;
+  const $ = s => document.querySelector(s);
+  const mode = location.hash.slice(1);
+
+  function setStatus(text, kind) {
+    $('#status').className = 'status' + (kind ? ' ' + kind : '');
+    $('#status-text').textContent = text;
+  }
+  window.onStatus = text => setStatus(text);
+  window.onConnectFailed = msg => setStatus(msg || 'Não encontrei o PC. Veja as dicas abaixo.', 'err');
+  window.onNeedSetup = () => { setStatus('Procurando PCs no Wi-Fi…'); A.discover(); };
+  window.onDiscovered = list => {
+    $('#found-card').hidden = !list.length;
+    $('#found').replaceChildren(...list.map(pc => {
+      const b = document.createElement('button');
+      b.className = 'pc';
+      const name = document.createElement('b');
+      name.textContent = pc.name;
+      const url = document.createElement('small');
+      url.textContent = pc.url;
+      const box = document.createElement('div');
+      box.append(name, url);
+      b.append(box);
+      b.addEventListener('click', () => { setStatus('Conectando em ' + pc.name + '…'); A.useAddress(pc.url); });
+      return b;
+    }));
+    if (list.length) setStatus(list.length === 1 ? 'Achei 1 PC. Toque nele para entrar.' : `Achei ${list.length} PCs. Escolha um.`, 'idle');
+    else setStatus('Nenhum PC respondeu no Wi-Fi. O PControl está rodando no PC?', 'err');
+  };
+
+  function renderSaved() {
+    const s = JSON.parse(A.getState() || '{}');
+    const has = s.lan || s.tailscale;
+    $('#saved-card').hidden = !has;
+    if (!has) return;
+    const rows = [];
+    if (s.host) rows.push(['PC', s.host]);
+    if (s.lan) rows.push(['Wi-Fi', s.lan]);
+    rows.push(['Fora de casa', s.tailscale || 'ainda não configurado']);
+    $('#saved').replaceChildren(...rows.map(([k, v]) => {
+      const d = document.createElement('div');
+      const c = document.createElement('code');
+      c.textContent = v;
+      d.append(k + ': ', c);
+      return d;
+    }));
+    return s;
+  }
+
+  $('#search').addEventListener('click', () => { setStatus('Procurando PCs no Wi-Fi…'); A.discover(); });
+  $('#retry').addEventListener('click', () => { setStatus('Conectando…'); A.autoConnect(); });
+  $('#back').addEventListener('click', () => { setStatus('Conectando…'); A.back(); });
+  $('#manual').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#address').value.trim();
+    if (!v) return;
+    setStatus('Testando ' + v + '…');
+    A.useAddress(v);
+  });
+  $('#forget').addEventListener('click', () => {
+    A.forget();
+    renderSaved();
+    setStatus('PC esquecido. Procure de novo ou digite o endereço.', 'idle');
+  });
+
+  const saved = renderSaved();
+  if (mode === 'settings') {
+    $('#back-card').hidden = !saved;
+    setStatus('Configurações de conexão', 'idle');
+  } else if (mode === 'lost') {
+    setStatus('A conexão com o PC caiu. Tentando de novo…');
+    A.autoConnect();
+  } else {
+    A.autoConnect();
+  }
+</script>
+</body>
+</html>

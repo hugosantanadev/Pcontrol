@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#0d0f13">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PControl">
+<link rel="manifest" href="/s/manifest.webmanifest">
+<link rel="icon" href="/s/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/s/icon-192.png">
+<title>PControl</title>
+<link rel="stylesheet" href="/s/app.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49 49 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49 49 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
+    <symbol id="i-drive" viewBox="0 0 24 24"><path d="M22 12H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11zM6 16h.01M10 16h.01"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M10 13h4M7 16h10"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-minimize" viewBox="0 0 24 24"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></symbol>
+    <symbol id="i-zoom-in" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></symbol>
+    <symbol id="i-zoom-out" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 11h6"/></symbol>
+    <symbol id="i-touchpad" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 15h18M12 15v5"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8z"/></symbol>
+    <symbol id="i-playpause" viewBox="0 0 24 24"><path d="m3 5 9 7-9 7zM15 5v14M20 5v14"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M19 20 9 12l10-8zM5 19V5"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m5 4 10 8-10 8zM19 5v14"/></symbol>
+    <symbol id="i-back10" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-fwd10" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-screen-off" viewBox="0 0 24 24"><path d="M17 17H4a2 2 0 0 1-2-2V5c0-1.5 1-2 1-2M22 15V5a2 2 0 0 0-2-2H9M8 21h8M12 17v4M2 2l20 20"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+    <symbol id="i-folder-plus" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M12 10v6M9 13h6"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 19V5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15a3 3 0 0 0 5.2 2.1L9 15h6l1.8 2.1A3 3 0 0 0 22 15l-.7-6.4A4 4 0 0 0 17.3 5z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4ZM6 2v2M10 2v2M14 2v2"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+  </defs>
+</svg>
+
+<!-- Login -->
+<div id="login" class="login" hidden>
+  <form id="login-form" class="login-card" autocomplete="on">
+    <img src="/s/icon.svg" alt="" class="login-logo" width="64" height="64">
+    <h1>PControl</h1>
+    <p id="login-host" class="muted">Digite a senha que você criou no PC.</p>
+    <input id="login-pass" class="field" type="password" placeholder="Senha" autocomplete="current-password" required>
+    <button class="btn primary block" type="submit">Entrar</button>
+    <p id="login-error" class="error" hidden></p>
+    <button id="login-native-settings" class="btn ghost block" type="button" hidden>Trocar endereço do PC</button>
+  </form>
+</div>
+
+<!-- App -->
+<div id="app" class="app" hidden>
+  <header class="topbar">
+    <div class="host"><span id="conn-dot" class="dot"></span><span id="host-name">PC</span></div>
+    <span id="conn-via" class="pill"></span>
+    <button id="native-settings" class="icon-btn" hidden aria-label="Configurações do app"><svg class="i"><use href="#i-settings"/></svg></button>
+  </header>
+
+  <main class="tabs">
+    <!-- Tela -->
+    <section class="tab tab-screen" data-tab="screen">
+      <div class="screen-bar">
+        <button id="mode-btn" class="chip"><svg class="i"><use href="#i-touchpad"/></svg><span>Touchpad</span></button>
+        <span id="fps" class="fps"></span>
+        <span class="spacer"></span>
+        <button id="zoom-out" class="icon-btn" aria-label="Diminuir zoom"><svg class="i"><use href="#i-zoom-out"/></svg></button>
+        <span id="zoom-label" class="zoom-label">1x</span>
+        <button id="zoom-in" class="icon-btn" aria-label="Aumentar zoom"><svg class="i"><use href="#i-zoom-in"/></svg></button>
+        <button id="screen-settings" class="icon-btn" aria-label="Qualidade"><svg class="i"><use href="#i-sliders"/></svg></button>
+        <button id="immersive-btn" class="icon-btn" aria-label="Tela cheia"><svg class="i"><use href="#i-maximize"/></svg></button>
+      </div>
+      <div id="viewport" class="viewport">
+        <img id="screen-img" alt="" draggable="false">
+        <div id="cursor" class="cursor"><svg viewBox="0 0 24 24"><path d="M5 3l14 7.5-6.2 1.6L10 18z"/></svg></div>
+        <div id="screen-status" class="screen-status">Conectando…</div>
+        <div id="gesture-hint" class="gesture-hint" hidden></div>
+      </div>
+      <div class="mouse-bar">
+        <button class="mbtn" data-btn="left">Esquerdo</button>
+        <button id="hold-btn" class="mbtn small">Segurar</button>
+        <button class="mbtn" data-btn="right">Direito</button>
+        <button id="kbd-toggle" class="mbtn icon" aria-label="Teclado"><svg class="i"><use href="#i-keyboard"/></svg></button>
+      </div>
+      <div id="kbd-panel" class="kbd-panel" hidden>
+        <input id="kbd-input" class="field kbd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="enter" placeholder="Toque aqui e digite no PC">
+        <div class="key-row">
+          <button class="key mod" data-mod="ctrl">Ctrl</button>
+          <button class="key mod" data-mod="alt">Alt</button>
+          <button class="key mod" data-mod="shift">Shift</button>
+          <button class="key mod" data-mod="win">Win</button>
+          <button class="key" data-key="esc">Esc</button>
+          <button class="key" data-key="tab">Tab</button>
+          <button class="key" data-key="backspace">⌫</button>
+          <button class="key" data-key="enter">↵</button>
+        </div>
+        <div class="key-row">
+          <button class="key" data-key="left">←</button>
+          <button class="key" data-key="up">↑</button>
+          <button class="key" data-key="down">↓</button>
+          <button class="key" data-key="right">→</button>
+          <button class="key" data-key="home">Home</button>
+          <button class="key" data-key="end">End</button>
+          <button class="key" data-key="delete">Del</button>
+          <button class="key" data-key="space">Espaço</button>
+        </div>
+        <div class="key-row scroll">
+          <button class="key wide" data-combo="ctrl+c">Copiar</button>
+          <button class="key wide" data-combo="ctrl+v">Colar</button>
+          <button class="key wide" data-combo="ctrl+x">Recortar</button>
+          <button class="key wide" data-combo="ctrl+z">Desfazer</button>
+          <button class="key wide" data-combo="ctrl+a">Sel. tudo</button>
+          <button class="key wide" data-combo="alt+tab">Alt+Tab</button>
+          <button class="key wide" data-combo="alt+f4">Fechar (Alt+F4)</button>
+          <button class="key wide" data-combo="win+d">Área de trabalho</button>
+          <button class="key wide" data-combo="ctrl+shift+esc">Gerenciador</button>
+          <button class="key wide" data-combo="ctrl+w">Fechar aba</button>
+          <button class="key wide" data-combo="ctrl+t">Nova aba</button>
+          <button class="key" data-key="pageup">PgUp</button>
+          <button class="key" data-key="pagedown">PgDn</button>
+          <button class="key" data-key="f5">F5</button>
+          <button class="key" data-key="f11">F11</button>
+          <button class="key" data-key="printscreen">PrtSc</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apps -->
+    <section class="tab tab-scroll" data-tab="apps" hidden>
+      <div class="search-row">
+        <label class="search"><svg class="i"><use href="#i-search"/></svg><input id="apps-search" type="search" placeholder="Buscar app ou jogo"></label>
+        <button id="apps-refresh" class="icon-btn" aria-label="Atualizar lista"><svg class="i"><use href="#i-refresh"/></svg></button>
+      </div>
+      <div id="open-windows-wrap" class="section">
+        <h2 class="section-title">Abertos agora</h2>
+        <div id="open-windows" class="strip"></div>
+      </div>
+      <div id="favorites-wrap" class="section" hidden>
+        <div class="section-head"><h2 class="section-title">Favoritos</h2><button id="fav-edit" class="link-btn">Editar</button></div>
+        <div id="favorites" class="app-grid"></div>
+      </div>
+      <div id="steam-wrap" class="section" hidden>
+        <h2 class="section-title">Jogos da Steam</h2>
+        <div id="steam" class="game-grid"></div>
+      </div>
+      <div class="section">
+        <h2 class="section-title">Todos os apps</h2>
+        <div id="apps" class="app-grid"><p class="muted pad">Carregando…</p></div>
+      </div>
+    </section>
+
+    <!-- YouTube -->
+    <section class="tab tab-yt" data-tab="yt" hidden>
+      <form id="yt-form" class="search-row">
+        <label class="search"><svg class="i"><use href="#i-search"/></svg><input id="yt-q" type="search" placeholder="Pesquisar ou colar link do YouTube" enterkeyhint="search"></label>
+        <button class="btn primary" type="submit">Buscar</button>
+      </form>
+      <div id="yt-results" class="yt-results">
+        <div class="empty"><svg class="i big"><use href="#i-youtube"/></svg><p>Pesquise um vídeo e toque nele para tocar no PC.</p></div>
+      </div>
+      <div class="yt-remote">
+        <button data-yt="shift+p" aria-label="Vídeo anterior"><svg class="i"><use href="#i-prev"/></svg></button>
+        <button data-yt="j" aria-label="Voltar 10 segundos"><svg class="i"><use href="#i-back10"/></svg><small>10</small></button>
+        <button data-yt="k" class="main" aria-label="Play/Pausa"><svg class="i"><use href="#i-playpause"/></svg></button>
+        <button data-yt="l" aria-label="Avançar 10 segundos"><svg class="i"><use href="#i-fwd10"/></svg><small>10</small></button>
+        <button data-yt="shift+n" aria-label="Próximo vídeo"><svg class="i"><use href="#i-next"/></svg></button>
+        <button data-yt="m" aria-label="Mudo"><svg class="i"><use href="#i-mute"/></svg></button>
+        <button data-yt="f" aria-label="Tela cheia"><svg class="i"><use href="#i-maximize"/></svg></button>
+      </div>
+    </section>
+
+    <!-- Controles -->
+    <section class="tab tab-scroll" data-tab="control" hidden>
+      <div class="card">
+        <h2 class="card-title"><svg class="i"><use href="#i-volume"/></svg>Som e mídia</h2>
+        <div class="volume-row">
+          <button id="vol-mute" class="icon-btn round" aria-label="Mudo"><svg class="i"><use href="#i-volume"/></svg></button>
+          <input id="vol-slider" class="range" type="range" min="0" max="100" step="1" value="50">
+          <span id="vol-value" class="vol-value">–</span>
+        </div>
+        <div class="media-row">
+          <button class="icon-btn round lg" data-media="mediaprev" aria-label="Anterior"><svg class="i"><use href="#i-prev"/></svg></button>
+          <button class="icon-btn round xl primary" data-media="mediaplay" aria-label="Play/Pausa"><svg class="i"><use href="#i-playpause"/></svg></button>
+          <button class="icon-btn round lg" data-media="medianext" aria-label="Próxima"><svg class="i"><use href="#i-next"/></svg></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title"><svg class="i"><use href="#i-type"/></svg>Digitar ou colar no PC</h2>
+        <textarea id="type-text" class="field area" rows="3" placeholder="Escreva aqui e mande pro PC"></textarea>
+        <div class="btn-row">
+          <button id="type-send" class="btn primary">Digitar no PC</button>
+          <button id="clip-send" class="btn">Copiar no PC</button>
+          <button id="clip-get" class="btn">Pegar do PC</button>
+        </div>
+        <label class="check"><input id="type-enter" type="checkbox"> Apertar Enter depois de digitar</label>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title"><svg class="i"><use href="#i-link"/></svg>Abrir link no PC</h2>
+        <form id="open-form" class="inline-form">
+          <input id="open-url" class="field" type="url" inputmode="url" placeholder="https://…">
+          <button class="btn primary" type="submit">Abrir</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title"><svg class="i"><use href="#i-power"/></svg>Energia</h2>
+        <div class="power-grid">
+          <button class="tile-btn" data-power="lock"><svg class="i"><use href="#i-lock"/></svg>Bloquear</button>
+          <button class="tile-btn" data-power="screen_off"><svg class="i"><use href="#i-screen-off"/></svg>Desligar tela</button>
+          <button class="tile-btn" data-power="sleep"><svg class="i"><use href="#i-moon"/></svg>Suspender</button>
+          <button class="tile-btn" data-power="restart"><svg class="i"><use href="#i-restart"/></svg>Reiniciar</button>
+          <button class="tile-btn danger" data-power="shutdown"><svg class="i"><use href="#i-power"/></svg>Desligar</button>
+          <button class="tile-btn" data-power="cancel"><svg class="i"><use href="#i-x"/></svg>Cancelar desligar</button>
+        </div>
+        <label class="switch-row">
+          <span><b>Manter o PC acordado</b><small>Impede que ele entre em suspensão sozinho e fique fora do alcance.</small></span>
+          <input id="keep-awake" type="checkbox" class="switch">
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title"><svg class="i"><use href="#i-cpu"/></svg>Desempenho</h2>
+          <button id="open-tasks" class="btn small">Gerenciador de tarefas</button>
+        </div>
+        <div id="stats" class="stats"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title"><svg class="i"><use href="#i-link"/></svg>Conexão</h2>
+        <div id="conn-info" class="conn-info"></div>
+        <button id="logout" class="btn ghost danger-text"><svg class="i"><use href="#i-logout"/></svg>Sair deste aparelho</button>
+      </div>
+    </section>
+
+    <!-- Arquivos -->
+    <section class="tab tab-files" data-tab="files" hidden>
+      <div class="files-head">
+        <button id="files-up" class="icon-btn" aria-label="Pasta acima"><svg class="i"><use href="#i-up"/></svg></button>
+        <div id="files-path" class="crumbs"></div>
+      </div>
+      <div class="files-tools">
+        <button id="files-upload" class="btn small"><svg class="i"><use href="#i-upload"/></svg>Enviar</button>
+        <button id="files-mkdir" class="btn small"><svg class="i"><use href="#i-folder-plus"/></svg>Nova pasta</button>
+        <label class="check small"><input id="files-hidden" type="checkbox"> Ocultos</label>
+        <span class="spacer"></span>
+        <button id="files-refresh" class="icon-btn" aria-label="Atualizar"><svg class="i"><use href="#i-refresh"/></svg></button>
+        <input id="files-input" type="file" multiple hidden>
+      </div>
+      <div id="upload-progress" class="progress" hidden><div></div><span></span></div>
+      <div id="files-list" class="files-list"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button data-tab="screen" class="active"><svg class="i"><use href="#i-monitor"/></svg><span>Tela</span></button>
+    <button data-tab="apps"><svg class="i"><use href="#i-grid"/></svg><span>Apps</span></button>
+    <button data-tab="yt"><svg class="i"><use href="#i-youtube"/></svg><span>YouTube</span></button>
+    <button data-tab="control"><svg class="i"><use href="#i-sliders"/></svg><span>Controles</span></button>
+    <button data-tab="files"><svg class="i"><use href="#i-folder"/></svg><span>Arquivos</span></button>
+  </nav>
+</div>
+
+<button id="exit-immersive" class="exit-immersive" hidden aria-label="Sair da tela cheia"><svg class="i"><use href="#i-minimize"/></svg></button>
+<div id="sheet" class="sheet" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="/s/app.js"></script>
+</body>
+</html>
